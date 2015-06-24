@@ -5,3 +5,4 @@ gemspec
 
 gem 'insightly2'
 gem 'rubocop', require: false
+gem 'rspec'

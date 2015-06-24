@@ -1,5 +1,6 @@
 require 'rd_insightly/version'
+require "rd_insightly/lead"
 
 module RdInsightly
-  # Your code goes here...
+
 end

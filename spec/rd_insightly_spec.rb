@@ -4,4 +4,8 @@ describe RdInsightly do
   it 'has a version number' do
     expect(RdInsightly::VERSION).not_to be nil
   end
+
+  context 'should initialize with api_token' do
+    
+  end
 end
