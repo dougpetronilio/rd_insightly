@@ -4,7 +4,8 @@ require 'rd_insightly/lead_exception'
 require 'rd_insightly/api_token_exception'
 require 'rd_insightly/auth_insightly'
 require 'rd_insightly/api_insightly'
-require 'insightly2'
+require 'rest-client'
+require 'base64'
 
 module RdInsightly
 end

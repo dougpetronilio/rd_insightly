@@ -3,7 +3,7 @@ require 'spec_helper'
 module RdInsightly
   describe AuthInsightly do
     after { AuthInsightly.loggout }
-    let(:auth) { AuthInsightly.create '24c00c9d-59ee-4a9a-9877-8b5f4ca874e9' }
+    let(:auth) { AuthInsightly.create '123' }
     context '#create' do
       before { allow(ApiInsightly).to receive(:auth).and_return(true) }
       context 'should create authorization with api_token' do
