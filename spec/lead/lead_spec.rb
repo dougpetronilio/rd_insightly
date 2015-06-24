@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module RdInsightly
-  describe RdInsightly::Lead do
+  describe Lead do
     context '#create' do
       let(:lead) { Lead.create 'lead' }
       context 'should create lead with attributes' do
@@ -17,7 +17,7 @@ module RdInsightly
       end
 
       context 'when try create test without authorized get a exception api_token_exception' do
-        before { allow(AuthInsightly).to receive(:authorized).and_return(false) }
+        before { allow(AuthInsightly).to receive(:authorized).and_return(nil) }
 
         it { expect { lead }.to raise_error ApiTokenException }
       end
