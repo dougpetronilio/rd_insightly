@@ -4,14 +4,14 @@ module RdInsightly
     UNAUTHORIZED = false
 
     def self.authentication
-      RestClient.get('https://api.insight.ly/v2.1/contacts', Authorization: authorization_string)
+      RestClient.get('https://api.insight.ly/v2.1/contacts', Authorization: authorization_string, accept: :json)
       AUTHORIZED
     rescue
       UNAUTHORIZED
     end
 
     def self.leads
-      RestClient.get('https://api.insight.ly/v2.1/contacts', Authorization: authorization_string)
+      RestClient.get('https://api.insight.ly/v2.1/leads', Authorization: authorization_string, accept: :json)
     rescue
       nil
     end
