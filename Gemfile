@@ -4,5 +4,5 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rest-client'
-gem 'coveralls', require: false
 gem 'rubocop', require: false
+gem "codeclimate-test-reporter", require: false
