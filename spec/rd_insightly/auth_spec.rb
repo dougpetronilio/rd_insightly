@@ -4,7 +4,7 @@ module RdInsightly
   describe Auth do
     context '#create' do
       before { allow(ApiInsightly).to receive(:authentication).and_return(true) }
-      let(:auth) { Auth.create '123' }
+      let(:auth) { Auth.create TOKEN }
 
       context 'should create authorization with api_token' do
         it { expect(auth).to be_kind_of(Auth) }
@@ -19,14 +19,14 @@ module RdInsightly
     context '#authorized?' do
       context 'when authorization success with insightly' do
         before { allow(ApiInsightly).to receive(:authentication).and_return(true) }
-        let(:auth) { Auth.create '123' }
+        let(:auth) { Auth.create TOKEN }
 
         it { expect(auth.authorized?).to eq true }
       end
 
       context 'when authorization fail by insightly token wrong' do
         before { allow(ApiInsightly).to receive(:authentication).and_return(false) }
-        let(:auth) { Auth.create '123' }
+        let(:auth) { Auth.create TOKEN_WRONG }
         it { expect(auth.authorized?).to eq false }
       end
     end

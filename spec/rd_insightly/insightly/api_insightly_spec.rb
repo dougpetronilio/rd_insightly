@@ -2,16 +2,15 @@ require 'spec_helper'
 
 module RdInsightly
   describe ApiInsightly do
-    after { Auth.loggout }
     context '#authentication' do
       context 'should return true with api_token correct' do
-        before { RdInsightly.create_authorization '24c00c9d-59ee-4a9a-9877-8b5f4ca874e9' }
+        before { RdInsightly.create_authorization TOKEN }
         let(:api) { ApiInsightly.authentication }
         it { expect(api).to eq true }
       end
 
       context 'should return false if Unauthorized' do
-        before { RdInsightly.create_authorization '123' }
+        before { RdInsightly.create_authorization TOKEN_WRONG }
         let(:api) { ApiInsightly.authentication }
         it { expect(api).to eq false }
       end
