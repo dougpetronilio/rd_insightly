@@ -22,5 +22,13 @@ module RdInsightly
         it { expect { lead }.to raise_error ApiTokenException }
       end
     end
+
+    context '#all' do
+      context 'should list all leads' do
+        before { allow(AuthInsightly).to receive(:authorized).and_return(true) }
+        let(:leads) { Lead.all }
+        it { expect(leads.count).to eq 0 }
+      end
+    end
   end
 end

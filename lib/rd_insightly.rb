@@ -6,6 +6,7 @@ require 'rd_insightly/auth_insightly'
 require 'rd_insightly/api_insightly'
 require 'rest-client'
 require 'base64'
+require 'singleton'
 
 module RdInsightly
 end

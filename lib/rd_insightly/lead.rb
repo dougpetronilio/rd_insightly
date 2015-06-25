@@ -11,5 +11,10 @@ module RdInsightly
       fail ApiTokenException unless AuthInsightly.authorized
       Lead.new name
     end
+    
+    def self.all
+      fail ApiTokenException unless AuthInsightly.authorized
+      []
+    end
   end
 end
