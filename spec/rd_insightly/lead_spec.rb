@@ -26,7 +26,7 @@ module RdInsightly
       context 'should call Api' do
         it 'Insightly method insightly' do
           expect(RdInsightly).to receive(:authorized?).and_return(true)
-          Lead.create NAME 
+          Lead.create NAME
         end
       end
     end
@@ -41,7 +41,7 @@ module RdInsightly
         let(:leads) { Lead.all }
         it { expect(leads.count).to be > 0 }
       end
-     
+
       context 'should call Api' do
         before { RdInsightly.create_authorization TOKEN }
         it 'to authorize' do

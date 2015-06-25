@@ -14,7 +14,7 @@ module RdInsightly
 
     def self.all
       fail ApiTokenException unless RdInsightly.authorized?
-      ApiInsightly.leads 
+      ApiInsightly.leads
     end
   end
 end
