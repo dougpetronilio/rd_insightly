@@ -6,7 +6,7 @@ module RdInsightly
     def self.authentication
       RestClient.get('https://api.insight.ly/v2.1/contacts', Authorization: authorization_string)
       AUTHORIZED
-    rescue
+    rescue Exception => e
       UNAUTHORIZED
     end
 
