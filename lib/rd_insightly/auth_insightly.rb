@@ -1,8 +1,7 @@
 module RdInsightly
   class AuthInsightly
-    
     def initialize(api_token)
-      fail ApiTokenException unless ApiInsightly.auth(api_token)
+      api_token = nil unless ApiInsightly.authentication(api_token)
       @api_token = api_token
     end
 
@@ -16,7 +15,7 @@ module RdInsightly
     end
 
     def authorized
-      @api_token != nil
+      !@api_token.nil?
     end
   end
 end
