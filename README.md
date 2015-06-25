@@ -1,3 +1,6 @@
+[ ![Codeship Status for dougpetronilio/rd_insightly](https://codeship.com/projects/d36b91a0-fcc3-0132-8760-5a06a30fe976/status?branch=master)](https://codeship.com/projects/87584)
+[![Code Climate](https://codeclimate.com/github/dougpetronilio/rd_insightly/badges/gpa.svg)](https://codeclimate.com/github/dougpetronilio/rd_insightly)
+[![Coverage Status](https://coveralls.io/repos/dougpetronilio/rd_insightly/badge.svg)](https://coveralls.io/r/dougpetronilio/rd_insightly)
 # RdInsightly
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rd_insightly`. To experiment with that code, run `bin/console` for an interactive prompt.
