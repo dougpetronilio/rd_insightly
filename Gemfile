@@ -5,4 +5,4 @@ gemspec
 
 gem 'rest-client'
 gem 'rubocop', require: false
-gem 'codeclimate-test-reporter', require: false
+gem 'coveralls', require: false
