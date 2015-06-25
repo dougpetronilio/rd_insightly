@@ -1,5 +1,5 @@
 module RdInsightly
-  class AuthInsightly
+  class Auth
     class << self
       attr_reader :api_token
     end

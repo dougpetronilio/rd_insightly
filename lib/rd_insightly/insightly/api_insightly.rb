@@ -11,7 +11,7 @@ module RdInsightly
     end
 
     def self.authorization_string
-      "Basic #{Base64.encode64(AuthInsightly.api_token)}"
+      "Basic #{Base64.encode64(Auth.api_token)}"
     end
   end
 end
