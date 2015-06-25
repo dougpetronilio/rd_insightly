@@ -2,12 +2,12 @@ require 'spec_helper'
 
 module RdInsightly
   describe Auth do
-    after { Auth.loggout }
-    let(:auth) { Auth.create '123' }
     context '#create' do
       before { allow(ApiInsightly).to receive(:authentication).and_return(true) }
+      let(:auth) { Auth.create '123' }
+
       context 'should create authorization with api_token' do
-        it { expect(auth).to eq '123' }
+        it { expect(auth).to be_kind_of(Auth) }
       end
 
       context 'when try create authorization without api_token get a exception' do
@@ -18,20 +18,16 @@ module RdInsightly
 
     context '#authorized?' do
       context 'when authorization success with insightly' do
-        before do
-          allow(ApiInsightly).to receive(:authentication).and_return(true)
-          Auth.create '123'
-        end
+        before { allow(ApiInsightly).to receive(:authentication).and_return(true) }
+        let(:auth) { Auth.create '123' }
 
-        it { expect(Auth.authorized?).to eq true }
+        it { expect(auth.authorized?).to eq true }
       end
 
       context 'when authorization fail by insightly token wrong' do
-        before do
-          allow(ApiInsightly).to receive(:authentication).and_return(false)
-          Auth.create '123'
-        end
-        it { expect(Auth.authorized?).to eq false }
+        before { allow(ApiInsightly).to receive(:authentication).and_return(false) }
+        let(:auth) { Auth.create '123' }
+        it { expect(auth.authorized?).to eq false }
       end
     end
   end

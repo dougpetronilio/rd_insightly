@@ -1,19 +1,18 @@
 module RdInsightly
   class Auth
-    class << self
-      attr_reader :api_token
-    end
+    attr_reader :api_token
 
-    @api_token = nil
+    def initialize(api_token)
+      @api_token = api_token
+    end
 
     def self.create(api_token = nil)
       fail ApiTokenException if api_token.nil?
-      @api_token = api_token
-      @api_token = nil unless ApiInsightly.authentication
-      @api_token
+      Auth.new(api_token)
     end
 
-    def self.authorized?
+    def authorized?
+      @api_token = nil unless ApiInsightly.authentication
       !@api_token.nil?
     end
 

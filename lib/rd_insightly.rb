@@ -9,4 +9,16 @@ require 'base64'
 require 'singleton'
 
 module RdInsightly
+  @auth = nil
+  def self.create_authorization(api_token)
+    @auth = Auth.create(api_token)
+  end
+
+  def self.authorized?
+    @auth.authorized?
+  end
+
+  def self.api_token
+    @auth.api_token
+  end
 end

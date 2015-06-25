@@ -1,17 +1,17 @@
 module RdInsightly
-  class ApiInsightly
-    AUTHORIZATION = true
-    UNAUTHORIZATION = false
+  module ApiInsightly
+    AUTHORIZED = true
+    UNAUTHORIZED = false
 
     def self.authentication
       RestClient.get('https://api.insight.ly/v2.1/contacts', Authorization: authorization_string)
-      AUTHORIZATION
+      AUTHORIZED
     rescue
-      UNAUTHORIZATION
+      UNAUTHORIZED
     end
 
     def self.authorization_string
-      "Basic #{Base64.encode64(Auth.api_token)}"
+      "Basic #{Base64.encode64(RdInsightly.api_token)}"
     end
   end
 end
