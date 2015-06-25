@@ -10,6 +10,12 @@ module RdInsightly
       UNAUTHORIZED
     end
 
+    def self.leads
+      RestClient.get('https://api.insight.ly/v2.1/contacts', Authorization: authorization_string)
+    rescue
+      nil
+    end
+
     def self.authorization_string
       "Basic #{Base64.encode64(RdInsightly.api_token)}"
     end

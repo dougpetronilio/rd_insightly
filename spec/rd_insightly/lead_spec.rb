@@ -33,14 +33,24 @@ module RdInsightly
 
     context '#all' do
       context 'should list all leads' do
-        before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
+        before do
+          allow(RdInsightly).to receive(:authorized?).and_return(true)
+          allow(ApiInsightly).to receive(:leads).and_return([1])
+        end
+
         let(:leads) { Lead.all }
         it { expect(leads.count).to be > 0 }
       end
      
       context 'should call Api' do
-        it 'Insightly method insightly' do
+        before { RdInsightly.create_authorization TOKEN }
+        it 'to authorize' do
           expect(RdInsightly).to receive(:authorized?).and_return(true)
+          Lead.all
+        end
+
+        it 'to list leads' do
+          expect(ApiInsightly).to receive(:leads)
           Lead.all
         end
       end
