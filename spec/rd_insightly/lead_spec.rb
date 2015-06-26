@@ -2,14 +2,27 @@ require 'spec_helper'
 
 module RdInsightly
   describe Lead do
-    NAME = 'Lead'
+    LAST_NAME = 'Lead_last_name'
+    NAME = 'Lead_name'
+    EMAIL = 'Lead_email'
+    COMPANY = 'Lead_company'
+    JOB_TITLE = 'Lead_job_title'
+    PHONE = 'Lead_phone'
+    WEBSITE = 'Lead_website'
+
     context '#create' do
-      let(:lead) { Lead.create NAME }
+      let(:lead) { Lead.create LAST_NAME, NAME, EMAIL, COMPANY, JOB_TITLE, PHONE, WEBSITE }
       context 'should create lead with attributes' do
         before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
 
         it { expect(lead).to be_instance_of Lead }
+        it { expect(lead.last_name).to eq LAST_NAME }
         it { expect(lead.name).to eq NAME }
+        it { expect(lead.email).to eq EMAIL }
+        it { expect(lead.company).to eq COMPANY }
+        it { expect(lead.job_title).to eq JOB_TITLE }
+        it { expect(lead.phone).to eq PHONE }
+        it { expect(lead.website).to eq WEBSITE }
       end
 
       context 'when try create lead without attributes have a error' do
@@ -26,7 +39,7 @@ module RdInsightly
       context 'should call Api' do
         it 'Insightly method insightly' do
           expect(RdInsightly).to receive(:authorized?).and_return(true)
-          Lead.create NAME
+          Lead.create LAST_NAME
         end
       end
     end
