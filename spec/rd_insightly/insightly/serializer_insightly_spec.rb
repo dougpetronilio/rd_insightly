@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module RdInsightly
   describe SerializerInsightly do
-
     context '#lead' do
       before { RdInsightly.create_authorization TOKEN }
       context 'should return object type Lead' do
