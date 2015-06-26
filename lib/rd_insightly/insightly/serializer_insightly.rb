@@ -9,7 +9,7 @@ module RdInsightly
     WEBSITE_FIELD = 'WEBSITE_URL'
 
     def self.lead(lead_json)
-      Lead.create(lead_json[LAST_NAME_FIELD])
+      Lead.new lead_json[LAST_NAME_FIELD]
     end
   end
 end
