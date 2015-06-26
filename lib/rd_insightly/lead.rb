@@ -2,20 +2,20 @@ module RdInsightly
   class Lead
     attr_reader :name, :last_name, :email, :company, :job_title, :phone, :website
 
-    def initialize(last_name = nil, name = nil, email = nil, company = nil, job_title = nil, phone = nil, website = nil)
+    def initialize(last_name = nil, attributes = {})
       @last_name = last_name
-      @name = name
-      @email = email
-      @company = company
-      @job_title = job_title
-      @phone = phone
-      @website = website
+      @name = attributes.fetch(:name, nil)
+      @email = attributes.fetch(:email, nil)
+      @company = attributes.fetch(:company, nil)
+      @job_title = attributes.fetch(:job_title, nil)
+      @phone = attributes.fetch(:phone, nil)
+      @website = attributes.fetch(:website, nil)
     end
 
-    def self.create(last_name = nil, name = nil, email = nil, company = nil, job_title = nil, phone = nil, website = nil)
+    def self.create(last_name = nil, attributes = {})
       fail LeadException if last_name.nil?
       fail ApiTokenException unless RdInsightly.authorized?
-      Lead.new last_name, name, email, company, job_title, phone, website
+      Lead.new last_name, attributes
     end
 
     def self.all

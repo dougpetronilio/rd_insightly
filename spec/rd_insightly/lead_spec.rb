@@ -11,7 +11,7 @@ module RdInsightly
     WEBSITE = 'Lead_website'
 
     context '#create' do
-      let(:lead) { Lead.create LAST_NAME, NAME, EMAIL, COMPANY, JOB_TITLE, PHONE, WEBSITE }
+      let(:lead) { Lead.create LAST_NAME, name: NAME, email: EMAIL, company: COMPANY, job_title: JOB_TITLE, phone: PHONE, website: WEBSITE }
       context 'should create lead with attributes' do
         before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
 
