@@ -20,7 +20,12 @@ module RdInsightly
 
     def self.all
       fail ApiTokenException unless RdInsightly.authorized?
-      ApiInsightly.leads
+      leads_result = []
+      leads_json = ApiInsightly.leads
+      leads_json.each do |lead_json|
+        leads_result << SerializerInsightly.lead(lead_json)
+      end
+      leads_result
     end
   end
 end

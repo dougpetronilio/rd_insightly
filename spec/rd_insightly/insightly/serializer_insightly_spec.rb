@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module RdInsightly
   describe SerializerInsightly do
-    LEAD_RESULT = JSON.parse('[{"LAST_NAME": "Petronilio", "FIRST_NAME": "Douglas", "EMAIL_ADDRESS": "teste@teste.com", "ORGANIZATION_NAME": "TESTE", "TITLE": "ENGINEER", "PHONE_NUMBER": "12345678", "WEBSITE_URL": "www.teste.com"}]').first
 
     context '#lead' do
       before { RdInsightly.create_authorization TOKEN }

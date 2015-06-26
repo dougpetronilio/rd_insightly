@@ -11,7 +11,7 @@ module RdInsightly
     end
 
     def self.leads
-      RestClient.get('https://api.insight.ly/v2.1/leads', Authorization: authorization_string, accept: :json)
+      JSON.parse(RestClient.get('https://api.insight.ly/v2.1/leads', Authorization: authorization_string, accept: :json))
     rescue
       nil
     end
