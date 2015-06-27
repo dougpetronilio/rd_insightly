@@ -17,6 +17,8 @@ module RdInsightly
     end
 
     def self.create_lead(lead)
+      lead_hash = SerializerInsightly.lead_to_hash(lead)
+      RestClient.post('https://api.insight.ly/v2.1/leads', lead_hash.to_json, Authorization: authorization_string, accept: :json, content_type: :json)
       lead
     end
 

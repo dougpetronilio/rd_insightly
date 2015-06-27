@@ -2,6 +2,7 @@ require 'spec_helper'
 
 module RdInsightly
   describe ApiInsightly do
+    LEAD_HASH = { LAST_NAME: LAST_NAME }
     context '#authentication' do
       context 'should return true with response_token correct' do
         before { RdInsightly.create_authorization TOKEN }
@@ -27,6 +28,19 @@ module RdInsightly
         before { RdInsightly.create_authorization TOKEN_WRONG }
         let(:response) { ApiInsightly.leads }
         it { expect(response).to be_nil }
+      end
+    end
+
+    context '#create_lead' do
+      context 'should request ok if token correct' do
+        before { RdInsightly.create_authorization TOKEN }
+        context 'should call serializer object' do
+          let(:lead) { Lead.new LAST_NAME }
+          it 'with lead' do
+            expect(SerializerInsightly).to receive(:lead_to_hash).with(lead).and_return(LEAD_HASH)
+            ApiInsightly.create_lead lead
+          end
+        end
       end
     end
   end

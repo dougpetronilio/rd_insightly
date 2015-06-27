@@ -2,18 +2,14 @@ require 'spec_helper'
 
 module RdInsightly
   describe Lead do
-    LAST_NAME = 'Lead_last_name'
-    NAME = 'Lead_name'
-    EMAIL = 'Lead_email'
-    COMPANY = 'Lead_company'
-    JOB_TITLE = 'Lead_job_title'
-    PHONE = 'Lead_phone'
-    WEBSITE = 'Lead_website'
-
     context '#create' do
       let(:lead) { Lead.create LAST_NAME, name: NAME, email: EMAIL, company: COMPANY, job_title: JOB_TITLE, phone: PHONE, website: WEBSITE }
       context 'should create lead with attributes' do
-        before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
+        before do
+          allow(RdInsightly).to receive(:authorized?).and_return(true)
+          allow(ApiInsightly).to receive(:create_lead).and_return(lead)
+          allow(SerializerInsightly).to receive(:lead_to_hash).and_return({})
+        end
 
         it { expect(lead).to be_instance_of Lead }
         it { expect(lead.last_name).to eq LAST_NAME }
@@ -38,6 +34,11 @@ module RdInsightly
 
       context 'should call Api' do
         context 'make authorization' do
+          before do
+            allow(ApiInsightly).to receive(:create_lead).and_return(lead)
+            allow(SerializerInsightly).to receive(:lead_to_hash).and_return({})
+          end
+
           it 'Insightly method authorization' do
             expect(RdInsightly).to receive(:authorized?).and_return(true)
             Lead.create LAST_NAME
@@ -48,7 +49,7 @@ module RdInsightly
           before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
           it 'Insightly method post to create_lead' do
             expect(ApiInsightly).to receive(:create_lead).with(an_instance_of(Lead))
-            Lead.create LAST_NAME, name: NAME, email: EMAIL, company: COMPANY, job_title: JOB_TITLE, phone: PHONE, website: WEBSITE 
+            Lead.create LAST_NAME
           end
         end
       end
