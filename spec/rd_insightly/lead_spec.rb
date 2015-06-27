@@ -37,9 +37,19 @@ module RdInsightly
       end
 
       context 'should call Api' do
-        it 'Insightly method insightly' do
-          expect(RdInsightly).to receive(:authorized?).and_return(true)
-          Lead.create LAST_NAME
+        context 'make authorization' do
+          it 'Insightly method authorization' do
+            expect(RdInsightly).to receive(:authorized?).and_return(true)
+            Lead.create LAST_NAME
+          end
+        end
+
+        context 'post Lead' do
+          before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
+          it 'Insightly method post to create_lead' do
+            expect(ApiInsightly).to receive(:create_lead).with(an_instance_of(Lead))
+            Lead.create LAST_NAME, name: NAME, email: EMAIL, company: COMPANY, job_title: JOB_TITLE, phone: PHONE, website: WEBSITE 
+          end
         end
       end
     end
@@ -61,6 +71,7 @@ module RdInsightly
           allow(RdInsightly).to receive(:authorized?).and_return(true)
           allow(ApiInsightly).to receive(:leads).and_return(LEAD_LIST)
         end
+
         it 'to authorize' do
           expect(RdInsightly).to receive(:authorized?).and_return(true)
           Lead.all

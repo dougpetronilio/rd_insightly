@@ -16,6 +16,10 @@ module RdInsightly
       nil
     end
 
+    def self.create_lead(lead)
+      lead
+    end
+
     def self.authorization_string
       "Basic #{Base64.encode64(RdInsightly.api_token)}"
     end

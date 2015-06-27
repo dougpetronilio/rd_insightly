@@ -15,7 +15,8 @@ module RdInsightly
     def self.create(last_name = nil, attributes = {})
       fail LeadException if last_name.nil?
       fail ApiTokenException unless RdInsightly.authorized?
-      Lead.new last_name, attributes
+      lead = Lead.new last_name, attributes
+      ApiInsightly.create_lead(lead)
     end
 
     def self.all
