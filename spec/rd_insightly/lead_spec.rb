@@ -68,6 +68,12 @@ module RdInsightly
         it { expect(leads.count).to be 1 }
       end
 
+      context 'should authorized? to all' do
+        before { allow(RdInsightly).to receive(:authorized?).and_return(false) }
+        let(:leads) { Lead.all }
+        it { expect { leads }.to raise_error ApiTokenException }
+      end
+
       context 'should call Api' do
         before do
           allow(RdInsightly).to receive(:authorized?).and_return(true)
