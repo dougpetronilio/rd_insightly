@@ -34,11 +34,29 @@ module RdInsightly
     context '#create_lead' do
       context 'should request ok if token correct' do
         before { RdInsightly.create_authorization TOKEN }
+        let(:lead) { Lead.new LAST_NAME }
         context 'should call serializer object' do
-          let(:lead) { Lead.new LAST_NAME }
           it 'with lead' do
             expect(SerializerInsightly).to receive(:lead_to_hash).with(lead).and_return(LEAD_HASH)
             ApiInsightly.create_lead lead
+          end
+        end
+      end
+    end
+
+    context '#delete_lead' do
+      context 'should request ok if  token correct' do
+        before { RdInsightly.create_authorization TOKEN }
+        context 'should return fail' do
+          let(:response) { ApiInsightly.delete_lead '0' }
+          it { expect { response }.to raise_error LeadException }
+        end
+        context 'should return success' do
+          before { Lead.create LAST_NAME }
+          let(:lead_saved) { Lead.all.first }
+          let(:response) { ApiInsightly.delete_lead lead_saved.id }
+          it 'response code 202 success' do
+            expect(response.code).to eq 202
           end
         end
       end

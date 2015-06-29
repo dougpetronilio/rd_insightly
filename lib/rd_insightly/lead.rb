@@ -1,6 +1,6 @@
 module RdInsightly
   class Lead
-    attr_reader :name, :last_name, :email, :company, :job_title, :phone, :website
+    attr_reader :name, :last_name, :email, :company, :job_title, :phone, :website, :id
 
     def initialize(last_name = nil, attributes = {})
       @last_name = last_name
@@ -10,6 +10,7 @@ module RdInsightly
       @job_title = attributes.fetch(:job_title, nil)
       @phone = attributes.fetch(:phone, nil)
       @website = attributes.fetch(:website, nil)
+      @id = attributes.fetch(:id, nil)
     end
 
     def self.create(last_name = nil, attributes = {})
@@ -27,6 +28,11 @@ module RdInsightly
         leads_result << SerializerInsightly.lead(lead_json)
       end
       leads_result
+    end
+
+    def delete
+      fail ApiTokenException unless RdInsightly.authorized?
+      ApiInsightly.delete_lead @id 
     end
   end
 end

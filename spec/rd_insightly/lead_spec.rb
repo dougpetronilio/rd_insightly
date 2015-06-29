@@ -3,7 +3,7 @@ require 'spec_helper'
 module RdInsightly
   describe Lead do
     context '#create' do
-      let(:lead) { Lead.create LAST_NAME, name: NAME, email: EMAIL, company: COMPANY, job_title: JOB_TITLE, phone: PHONE, website: WEBSITE }
+      let(:lead) { Lead.create LAST_NAME, name: NAME, email: EMAIL, company: COMPANY, job_title: JOB_TITLE, phone: PHONE, website: WEBSITE, id: ID }
       context 'should create lead with attributes' do
         before do
           allow(RdInsightly).to receive(:authorized?).and_return(true)
@@ -19,6 +19,7 @@ module RdInsightly
         it { expect(lead.job_title).to eq JOB_TITLE }
         it { expect(lead.phone).to eq PHONE }
         it { expect(lead.website).to eq WEBSITE }
+        it { expect(lead.id).to eq ID }
       end
 
       context 'when try create lead without attributes have a error' do
@@ -81,6 +82,16 @@ module RdInsightly
         it 'to list leads' do
           expect(ApiInsightly).to receive(:leads)
           Lead.all
+        end
+      end
+    end
+
+    context '#delete' do
+      context 'should call api delete' do
+        it 'with id' do
+          new_lead = Lead.new LAST_NAME, id: ID 
+          expect(ApiInsightly).to receive(:delete_lead).with(new_lead.id)
+          new_lead.delete 
         end
       end
     end
