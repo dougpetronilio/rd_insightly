@@ -139,5 +139,43 @@ module RdInsightly
         it { expect { lead_find }.to raise_error ApiTokenException }
       end
     end
+
+    context '#update' do
+      context 'should call api update' do
+        before do
+          allow(RdInsightly).to receive(:authorized?).and_return(true)
+          allow(ApiInsightly).to receive(:leads).and_return(LEAD_LIST)
+        end
+
+        it 'update lead fields' do
+          lead = Lead.all.first
+          lead_changed = lead.dup
+          lead_changed.name = 'changed'
+          update_lead_hash = { name: lead_changed.name }
+
+          expect(ApiInsightly).to receive(:update_lead).with(be_instance_of Lead)
+          lead.update update_lead_hash
+        end
+      end
+
+      context 'should authorized? to update' do
+        before { allow(RdInsightly).to receive(:authorized?).and_return(false) }
+        let(:lead) { Lead.all.first }
+        let(:lead_update) { lead.update {} }
+        it { expect { lead_update }.to raise_error ApiTokenException }
+      end
+
+      context 'should return a object Lead' do
+        before do
+          allow(ApiInsightly).to receive(:update_lead).and_return(Lead.new LAST_NAME, id: ID)
+        end
+        let(:lead) { Lead.new LAST_NAME, id: ID }
+        let(:lead_found) { lead.update({}) }
+
+        it 'object from json' do
+          expect(lead_found).to be_instance_of Lead
+        end
+      end
+    end
   end
 end

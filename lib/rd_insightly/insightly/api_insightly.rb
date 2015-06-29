@@ -35,6 +35,14 @@ module RdInsightly
       raise LeadException, 'Lead não foi encontrado!'
     end
 
+    def self.update_lead(lead)
+      lead_hash = SerializerInsightly.lead_to_hash(lead)
+      response = RestClient.put('https://api.insight.ly/v2.1/leads', lead_hash.to_json, Authorization: authorization_string, accept: :json, content_type: :json)
+      SerializerInsightly.lead(JSON.parse(response))
+    rescue
+      raise LeadException, 'Lead não foi atualizado!'
+    end
+
     def self.authorization_string
       "Basic #{Base64.encode64(RdInsightly.api_token)}"
     end

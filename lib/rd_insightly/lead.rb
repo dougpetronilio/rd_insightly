@@ -1,6 +1,6 @@
 module RdInsightly
   class Lead
-    attr_reader :name, :last_name, :email, :company, :job_title, :phone, :website, :id
+    attr_accessor :name, :last_name, :email, :company, :job_title, :phone, :website, :id
 
     def initialize(last_name = nil, attributes = {})
       @last_name = last_name
@@ -38,6 +38,23 @@ module RdInsightly
     def delete
       fail ApiTokenException unless RdInsightly.authorized?
       ApiInsightly.delete_lead @id
+    end
+
+    def update(lead_changes)
+      fail ApiTokenException unless RdInsightly.authorized?
+
+      lead_changes[:id] = @id
+      hash_to_lead(lead_changes)
+
+      ApiInsightly.update_lead self
+    end
+
+    def hash_to_lead(lead_changes)
+      lead_changes.each do |key, value|
+        self.class.send :define_method, key do
+          value
+        end
+      end
     end
   end
 end

@@ -63,17 +63,45 @@ module RdInsightly
     end
 
     context '#find_lead' do
-      context 'should request ok if  token correct' do
+      context 'should request ok if token correct' do
         before { RdInsightly.create_authorization TOKEN }
         context 'should return fail' do
           let(:response) { ApiInsightly.find_lead '0' }
           it { expect { response }.to raise_error LeadException }
         end
-        context 'should return success' do
+
+        context 'should return success Lead' do
           before { Lead.create LAST_NAME }
           let(:lead_saved) { Lead.all.first }
           let(:lead) { ApiInsightly.find_lead lead_saved.id }
           it { expect(lead.last_name).to eq LAST_NAME }
+        end
+      end
+    end
+
+    context '#update_lead' do
+      context 'should request ok if token correct' do
+        before do
+          RdInsightly.create_authorization TOKEN
+          Lead.create LAST_NAME
+        end
+
+        context 'should return fail' do
+          let(:lead_saved) { Lead.new LAST_NAME, id: ID }
+          let(:response) { ApiInsightly.update_lead lead_saved }
+          it { expect { response }.to raise_error LeadException }
+        end
+
+        context 'should return success Lead changed' do
+          let(:lead_saved) { Lead.all.first }
+
+          it 'should change field different' do
+            lead_saved.name = 'changed'
+            lead = ApiInsightly.update_lead lead_saved
+
+            expect(lead.last_name).to eq LAST_NAME
+            expect(lead.name).to eq lead_saved.name
+          end
         end
       end
     end
