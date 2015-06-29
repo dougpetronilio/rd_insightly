@@ -61,5 +61,21 @@ module RdInsightly
         end
       end
     end
+
+    context '#find_lead' do
+      context 'should request ok if  token correct' do
+        before { RdInsightly.create_authorization TOKEN }
+        context 'should return fail' do
+          let(:response) { ApiInsightly.find_lead '0' }
+          it { expect { response }.to raise_error LeadException }
+        end
+        context 'should return success' do
+          before { Lead.create LAST_NAME }
+          let(:lead_saved) { Lead.all.first }
+          let(:lead) { ApiInsightly.find_lead lead_saved.id }
+          it { expect(lead.last_name).to eq LAST_NAME }
+        end
+      end
+    end
   end
 end

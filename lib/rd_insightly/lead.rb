@@ -30,9 +30,14 @@ module RdInsightly
       leads_result
     end
 
-    def self.delete(id)
+    def self.find(id)
       fail ApiTokenException unless RdInsightly.authorized?
-      ApiInsightly.delete_lead id
+      ApiInsightly.find_lead id
+    end
+
+    def delete
+      fail ApiTokenException unless RdInsightly.authorized?
+      ApiInsightly.delete_lead @id
     end
   end
 end

@@ -96,16 +96,47 @@ module RdInsightly
       context 'should call api delete' do
         before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
         it 'with id' do
-          Lead.new LAST_NAME, id: ID
+          lead = Lead.new LAST_NAME, id: ID
           expect(ApiInsightly).to receive(:delete_lead).with(ID)
-          Lead.delete ID
+          lead.delete
         end
       end
 
       context 'should authorized? to delete' do
         before { allow(RdInsightly).to receive(:authorized?).and_return(false) }
-        let(:lead_delete) { Lead.delete ID }
+        let(:new_lead) { Lead.new LAST_NAME, id: ID }
+        let(:lead_delete) { new_lead.delete }
         it { expect { lead_delete }.to raise_error ApiTokenException }
+      end
+    end
+
+    context '#find' do
+      context 'should call api find' do
+        before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
+        let(:lead) { Lead.new LAST_NAME, id: ID }
+        it 'with id' do
+          expect(ApiInsightly).to receive(:find_lead).with(lead.id)
+          Lead.find lead.id
+        end
+      end
+
+      context 'should return a object Lead' do
+        before do
+          allow(ApiInsightly).to receive(:find_lead).and_return(Lead.new LAST_NAME, id: ID)
+        end
+        let(:lead) { Lead.new LAST_NAME, id: ID }
+        let(:lead_found) { Lead.find ID }
+
+        it 'object from json' do
+          expect(lead_found).to be_instance_of Lead
+        end
+      end
+
+      context 'should authorized? to find' do
+        before { allow(RdInsightly).to receive(:authorized?).and_return(false) }
+        let(:lead) { Lead.new LAST_NAME, id: ID }
+        let(:lead_find) { Lead.find lead.id }
+        it { expect { lead_find }.to raise_error ApiTokenException }
       end
     end
   end

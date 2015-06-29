@@ -28,6 +28,13 @@ module RdInsightly
       raise LeadException, 'Lead não pode ser excluido!'
     end
 
+    def self.find_lead(lead_id)
+      lead_json = JSON.parse(RestClient.get("https://api.insight.ly/v2.1/leads/#{lead_id}", Authorization: authorization_string, accept: :json))
+      SerializerInsightly.lead(lead_json)
+    rescue
+      raise LeadException, 'Lead não foi encontrado!'
+    end
+
     def self.authorization_string
       "Basic #{Base64.encode64(RdInsightly.api_token)}"
     end
