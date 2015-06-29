@@ -81,11 +81,7 @@ module RdInsightly
 
     context '#update_lead' do
       context 'should request ok if token correct' do
-        before do
-          RdInsightly.create_authorization TOKEN
-          Lead.create LAST_NAME
-        end
-
+        before { RdInsightly.create_authorization TOKEN }
         context 'should return fail' do
           let(:lead_saved) { Lead.new LAST_NAME, id: ID }
           let(:response) { ApiInsightly.update_lead lead_saved }
@@ -93,6 +89,7 @@ module RdInsightly
         end
 
         context 'should return success Lead changed' do
+          before { Lead.create LAST_NAME }
           let(:lead_saved) { Lead.all.first }
 
           it 'should change field different' do
