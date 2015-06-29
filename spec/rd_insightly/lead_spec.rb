@@ -88,11 +88,18 @@ module RdInsightly
 
     context '#delete' do
       context 'should call api delete' do
+        before { allow(RdInsightly).to receive(:authorized?).and_return(true) }
         it 'with id' do
           Lead.new LAST_NAME, id: ID
           expect(ApiInsightly).to receive(:delete_lead).with(ID)
           Lead.delete ID
         end
+      end
+
+      context 'should authorized? to delete' do
+        before { allow(RdInsightly).to receive(:authorized?).and_return(false) }
+        let(:lead_delete) { Lead.delete ID }
+        it { expect { lead_delete }.to raise_error ApiTokenException }
       end
     end
   end
