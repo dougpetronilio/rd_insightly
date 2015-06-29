@@ -89,9 +89,9 @@ module RdInsightly
     context '#delete' do
       context 'should call api delete' do
         it 'with id' do
-          new_lead = Lead.new LAST_NAME, id: ID 
-          expect(ApiInsightly).to receive(:delete_lead).with(new_lead.id)
-          new_lead.delete 
+          Lead.new LAST_NAME, id: ID
+          expect(ApiInsightly).to receive(:delete_lead).with(ID)
+          Lead.delete ID
         end
       end
     end

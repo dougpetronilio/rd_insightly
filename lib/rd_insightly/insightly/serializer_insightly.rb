@@ -16,13 +16,13 @@ module RdInsightly
 
     def self.lead_to_hash(lead)
       lead_hash = {}
+      lead_hash[LAST_NAME_FIELD] = lead.last_name
       lead_hash = get_values_not_required(lead_hash, lead)
       lead_hash.delete_if { |_key, value| value.nil? }
       lead_hash
     end
 
     def self.get_values_not_required(lead_hash, lead)
-      lead_hash[LAST_NAME_FIELD] = lead.last_name
       lead_hash[NAME_FIELD] = lead.name
       lead_hash[EMAIL_FIELD] = lead.email
       lead_hash[COMPANY_FIELD] = lead.company
