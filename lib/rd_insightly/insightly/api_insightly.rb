@@ -23,11 +23,9 @@ module RdInsightly
     end
 
     def self.delete_lead(lead_id)
-      response_delete = nil 
-      response_delete = RestClient.delete("https://api.insight.ly/v2.1/leads/#{lead_id}", Authorization: authorization_string, accept: :json, content_type: :json)
-    rescue => e 
-      puts e.response.code
-      fail LeadException, 'Lead não pode ser excluido!'
+      RestClient.delete("https://api.insight.ly/v2.1/leads/#{lead_id}", Authorization: authorization_string, accept: :json, content_type: :json)
+    rescue
+      raise LeadException, 'Lead não pode ser excluido!'
     end
 
     def self.authorization_string
