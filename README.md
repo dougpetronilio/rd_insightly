@@ -25,7 +25,34 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Need create a authorization, you can use the method:
+
+  Rdinsightly.create_authorization API_KEY
+
+With authorization created you can start use the features:
+
+To create a lead(*last_name required):
+
+  HASH_ATTRIBUTES = {name: '', email: '', company: '', phone: '', job_title: '', website: ''}
+  RdInsightly::Lead.create last_name, HASH_ATTRIBUTES
+
+To find a lead:
+
+  lead = RdInsightly::Lead.find ID
+
+To update a lead:
+  
+  lead = RdInsightly::Lead.find ID
+  lead.update HASH_ATTRIBUTES
+
+To delete a lead:
+
+  lead = RdInsightly::Lead.find ID
+  lead.delete
+
+To logout: 
+
+  RdInsightly.logout
 
 ## Development
 
