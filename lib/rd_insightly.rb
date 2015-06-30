@@ -29,4 +29,8 @@ module RdInsightly
   def self.logout
     @auth.logout
   end
+
+  def self.token=(token)
+    @auth.api_token = token
+  end
 end

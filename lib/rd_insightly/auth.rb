@@ -1,6 +1,6 @@
 module RdInsightly
   class Auth
-    attr_reader :api_token
+    attr_accessor :api_token
 
     def initialize(api_token)
       @api_token = api_token
