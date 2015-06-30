@@ -72,7 +72,7 @@ module RdInsightly
 
         context 'should return success Lead' do
           before { Lead.create LAST_NAME }
-          let(:lead_saved) { Lead.all.first }
+          let(:lead_saved) { Lead.all.last }
           let(:lead) { ApiInsightly.find_lead lead_saved.id }
           it { expect(lead.last_name).to eq LAST_NAME }
         end
@@ -90,7 +90,7 @@ module RdInsightly
 
         context 'should return success Lead changed' do
           before { Lead.create LAST_NAME }
-          let(:lead_saved) { Lead.all.first }
+          let(:lead_saved) { Lead.all.last }
 
           it 'should change field different' do
             lead_saved.name = 'changed'

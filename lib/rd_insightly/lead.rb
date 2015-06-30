@@ -51,9 +51,7 @@ module RdInsightly
 
     def hash_to_lead(lead_changes)
       lead_changes.each do |key, value|
-        self.class.send :define_method, key do
-          value
-        end
+        instance_variable_set("@#{key}", value)
       end
     end
   end
