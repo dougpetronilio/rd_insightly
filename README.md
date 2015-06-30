@@ -33,26 +33,36 @@ With authorization created you can start use the features:
 
 To create a lead(*last_name required):
 
+```ruby
   HASH_ATTRIBUTES = {name: '', email: '', company: '', phone: '', job_title: '', website: ''}
   RdInsightly::Lead.create last_name, HASH_ATTRIBUTES
+```
 
 To find a lead:
 
+```ruby
   lead = RdInsightly::Lead.find ID
+```
 
 To update a lead:
   
+```ruby
   lead = RdInsightly::Lead.find ID
   lead.update HASH_ATTRIBUTES
+```
 
 To delete a lead:
 
+```ruby
   lead = RdInsightly::Lead.find ID
   lead.delete
+```
 
 To logout: 
 
+```ruby
   RdInsightly.logout
+```
 
 ## Development
 
