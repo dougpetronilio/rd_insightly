@@ -16,7 +16,7 @@ module RdInsightly
       !@api_token.nil?
     end
 
-    def self.loggout
+    def logout
       @api_token = nil
     end
   end
