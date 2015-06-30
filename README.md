@@ -64,6 +64,22 @@ To logout:
   RdInsightly.logout
 ```
 
+Use method token= to controll with session[:token]
+
+```ruby
+  auth = RdInsightly.create_authorization API_KEY
+  session[:token] = auth.api_token
+```
+
+Before_action authentication:
+
+```ruby
+  def authentication
+    redirect_to '' if session[:token].nil?
+    RdInsightly.token = session[:token] 
+  end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
