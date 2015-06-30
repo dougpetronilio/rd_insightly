@@ -10,12 +10,15 @@ require 'base64'
 require 'singleton'
 
 module RdInsightly
+  BASE_URL = 'https://api.insight.ly/v2.1/'
   @auth = nil
+
   def self.create_authorization(api_token)
     @auth = Auth.create(api_token)
   end
 
   def self.authorized?
+    return false if @auth.nil?
     @auth.authorized?
   end
 
